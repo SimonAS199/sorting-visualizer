@@ -1,5 +1,6 @@
 const generateArrayBtn = document.getElementById("generateArrayBtn");
 const displayGrid = document.getElementById("display");
+const algorithmBtns = document.querySelectorAll(".option");
 
 let globalRandomArray = [];
 
@@ -7,7 +8,7 @@ const generateArray = (arrayLength) => {
 
     globalRandomArray = [];
 
-    for (let i = 0; i < arrayLength; i++){
+    for (let i = 0; i < arrayLength; i++) {
 
         globalRandomArray.push(Math.floor(Math.random() * (50 - 5) + 5));
 
@@ -21,12 +22,12 @@ const drawArray = (array) => {
 
     displayGrid.innerHTML = "";
 
-    for (let i = 0; i < array.length; i++){
+    for (let i = 0; i < array.length; i++) {
 
         const valueBar = document.createElement("DIV");
         valueBar.classList.add("bar");
 
-        valueBar.style.gridColumnStart = (i+1).toString();
+        valueBar.style.gridColumnStart = (i + 1).toString();
         valueBar.style.gridRowStart = "1";
         valueBar.style.gridRowEnd = array[i];
 
@@ -36,7 +37,38 @@ const drawArray = (array) => {
 
 }
 
+const bubbleSort = (array) => {
+
+    for (let i = 1; i < array.length; i++) {
+
+        for (let j = 0; j < array.length; j++) {
+
+            if (array[j] > array[i]) {
+
+                let temp = array[i];
+                array[i] = array[j];
+                array[j] = temp;
+
+            }
+
+        }
+
+    }
+
+    return array;
+}
+
 generateArrayBtn.addEventListener("click", () => {
     generateArray(25);
     console.log(globalRandomArray);
+})
+
+algorithmBtns.forEach(button => {
+    button.addEventListener("click", () => {
+        switch (button.id) {
+            case "bubbleSortBtn":
+                console.log(bubbleSort(globalRandomArray));
+                break;
+        }
+    })
 })
